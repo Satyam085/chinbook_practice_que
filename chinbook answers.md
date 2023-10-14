@@ -3,17 +3,74 @@
 ## Possible solution for the below questions
 
 1. Provide a query showing Customers (just their full names, customer ID and country) who are not in the US.
-
+```
+SELECT
+	CustomerId ,
+	FirstName ,
+	LastName ,
+	Country
+FROM
+	Customer
+WHERE
+	Country <> 'USA'
+```
 2. Provide a query only showing the Customers from Brazil.
-
+```
+SELECT
+	CustomerId ,
+	FirstName ,
+	LastName 
+FROM
+	Customer
+WHERE
+	Country = 'Brazil'
+```
 3. Provide a query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country.
-
+```
+SELECT
+	FirstName,
+	LastName ,
+	InvoiceId ,
+	InvoiceDate ,
+	BillingCountry 
+FROM
+	Customer
+INNER JOIN Invoice ON
+	Customer.CustomerId = Invoice.CustomerId
+WHERE
+	Country = 'Brazil'
+```
 4. Provide a query showing only the Employees who are Sales Support Agents.
-
+```
+SELECT
+	*
+FROM
+	Employee
+WHERE 
+	Title = 'Sales Support Agent'
+```
 5. Provide a query showing a unique list of billing countries from the Invoice table.
-
+```
+SELECT
+	DISTINCT 
+	BillingCountry
+FROM
+	Invoice
+```
 6. Provide a query that shows the invoices associated with each sales agent. The resultant table should include the Sales Agent's full name.
+```
+SELECT 
+	Invoice.InvoiceId,
+	Employee.EmployeeId,
+	Employee.FirstName,
+	Employee.LastName ,
+	Invoice.Total 
+FROM 
+	Customer  
+JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId 
+JOIN Employee ON Customer.SupportRepId  = Employee.EmployeeId 
 
+```
 7. Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
 
 8. How many Invoices were there in 2009 and 2011? What are the respective total sales for each of those years?
